@@ -26,4 +26,8 @@ class EvilMailbox
     @mailer.send_mail
     return nil
   end
+
+  def receive_mail
+    @mailer.receive_mail
+  end
 end
