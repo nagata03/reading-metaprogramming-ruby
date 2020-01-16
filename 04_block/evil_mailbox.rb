@@ -23,8 +23,9 @@ class EvilMailbox
     @mailer.auth(str) if str
   end
 
-  def send_mail(title, body)
-    @mailer.send_mail
+  def send_mail(title, body, &block)
+    result = @mailer.send_mail
+    block.call(result)
     return nil
   end
 
