@@ -23,6 +23,7 @@ class EvilMailbox
   end
 
   def send_mail(title, body)
+    @mailer.send_mail
     return nil
   end
 end
