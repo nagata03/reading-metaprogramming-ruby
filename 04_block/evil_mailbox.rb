@@ -24,7 +24,7 @@ class EvilMailbox
   end
 
   def send_mail(title, body, &block)
-    result = @mailer.send_mail
+    result = @mailer.send_mail(title, body)
     block.call(result)
     return nil
   end
