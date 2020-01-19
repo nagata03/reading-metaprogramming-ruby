@@ -81,8 +81,11 @@ end
 # - 定義済みのメソッド (value, value=) は private のままとなっている
 class C4
   def increment
-    __send__(:value=, 0) unless value
-    __send__(:value=, value + 1).to_s
+    #__send__(:value=, 0) unless value
+    #__send__(:value=, value + 1).to_s
+    self.value = value || 0
+    self.value = value + 1
+    value.to_s
   end
 
   private
