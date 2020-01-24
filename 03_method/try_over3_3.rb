@@ -5,6 +5,19 @@ TryOver3 = Module.new
 # - `test_` から始まるインスタンスメソッドが実行された場合、このクラスは `run_test` メソッドを実行する
 # - `test_` メソッドがこのクラスに実装されていなくても `test_` から始まるメッセージに応答することができる
 # - TryOver3::A1 には `test_` から始まるインスタンスメソッドが定義されていない
+class TryOver3::A1
+  def run_test
+    nil
+  end
+
+  def method_missing(method)
+    if method.to_s.match?(/^test_/)
+      run_test
+    else
+      super
+    end
+  end
+end
 
 
 # Q2
