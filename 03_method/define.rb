@@ -14,6 +14,20 @@ end
 # - 2で定義するメソッドは下記とする
 #   - 受け取った引数の回数分、メソッド名を繰り返した文字列を返すこと
 #   - 引数がnilの場合は、dev_teamメソッドを呼ぶこと
+class A2
+  def initialize(array)
+    array.each do |attr|
+      define_singleton_method("hoge_#{attr}") do |num|
+        return "#{__method__}" * num.to_i unless num.nil?
+        dev_team
+      end
+    end
+  end
+
+  def dev_team
+    "SmartHR Dev Team"
+  end
+end
 
 # Q3.
 # 次の動作をする OriginalAccessor モジュール を実装する
