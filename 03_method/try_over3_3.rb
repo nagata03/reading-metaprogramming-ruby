@@ -31,6 +31,20 @@ class TryOver3::A2
   end
 end
 
+class TryOver3::A2Proxy
+  def initialize(source)
+    @source = source
+  end
+
+  def method_missing(method, *args)
+    super if !@source.respond_to?(method)
+    @source.send(method, *args)
+  end
+
+  def respond_to_missing?(method, include_private=false)
+    @source.respond_to?(method) || super
+  end
+end
 
 # Q3
 # 前回 OriginalAccessor の my_attr_accessor で定義した getter/setter に boolean の値が入っている場合には #{name}? が定義されるようなモジュールを実装しました。
