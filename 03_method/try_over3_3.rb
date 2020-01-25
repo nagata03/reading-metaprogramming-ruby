@@ -64,6 +64,10 @@ module TryOver3::OriginalAccessor2
           end
         end
         @attr = value
+
+        if ![true, false].include?(value) && respond_to?("#{attr_sym}?")
+          self.class.undef_method("#{attr_sym}?")
+        end
       end
     end
   end
