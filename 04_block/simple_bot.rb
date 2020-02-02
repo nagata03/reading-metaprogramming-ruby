@@ -31,21 +31,13 @@ class SimpleBot
     end
 
     def setting(key, value)
-      define_singleton_method key.to_sym do
-        "#{value.to_s}"
-      end
-
-      define_singleton_method :settings do
-        self
-      end
+      define_singleton_method(key) { value }
+      define_singleton_method(:settings) { self }
     end
   end
 
   def ask(keyword)
-    if keyword == self.class.instance_variable_get(:@keyword)
-      self.class.instance_variable_get(:@block).call
-    else
-      nil
-    end
+    return unless keyword == self.class.instance_variable_get(:@keyword)
+    self.class.instance_variable_get(:@block).call
   end
 end
