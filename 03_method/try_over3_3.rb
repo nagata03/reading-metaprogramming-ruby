@@ -87,12 +87,13 @@ class TryOver3::A4
 
     def const_missing(const_name)
       if @runners.include?(const_name)
-        self.class.const_set(const_name, Class.new do
-                                           def self.run
-                                             "run #{self.class.constants.first}"
-                                           end
-                                         end
-        )
+        #self.class.const_set(const_name, Class.new do
+        #                                   def self.run
+        #                                     "run #{self.class.constants.first}"
+        #                                   end
+        #                                 end
+        #)
+        Object.new.define_singleton_method(:run) { "run #{const_name}" }
       else
         super
       end
@@ -109,11 +110,14 @@ module TryOver3::TaskHelper
     klass.define_singleton_method :task do |name, &task_block|
       new_klass = Class.new do
         define_singleton_method :run do
+          puts "Warning: #{self.class}.run is duplicated"
           puts "start #{Time.now}"
           block_return = task_block.call
           puts "finish #{Time.now}"
           block_return
         end
+
+
       end
       new_klass_name = name.to_s.split("_").map{ |w| w[0] = w[0].upcase; w }.join
       const_set(new_klass_name, new_klass)
